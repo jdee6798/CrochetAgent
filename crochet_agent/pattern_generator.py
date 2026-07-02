@@ -482,7 +482,7 @@ Weave in all ends. Block to measurements."""
         gauge=f"10 tr × 6 rows = 10 cm square using {hook.split(' ')[0]} hook.",
         instructions=instructions,
         notes=[
-            "Use a chunky or super chunky yarn for a quicker knit.",
+            "Use a chunky or super chunky yarn for a quicker crochet.",
             "Adjust chain count to change the width.",
             "For a striped blanket, change colour every 2–4 rows.",
         ],
@@ -497,7 +497,7 @@ def _amigurumi_pattern(req: PatternRequest) -> Pattern:
     # Detect what animal/toy
     lower = req.raw.lower()
     animal = "bunny" if "bunny" in lower or "rabbit" in lower else \
-             "bear" if "bear" or "teddy" in lower else \
+             "bear" if "bear" in lower or "teddy" in lower else \
              "cat" if "cat" in lower else \
              "dog" if "dog" in lower else "animal"
 

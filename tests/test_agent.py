@@ -42,8 +42,18 @@ class TestProcessRequest:
         assert "AMIGURUMI" in result.upper()
 
     def test_unknown_item_returns_web_resources(self):
+        from urllib.parse import urlparse
         result = process_request("complex cable stitch jumper", use_us=False)
-        assert "ravelry.com" in result.lower() or "google.com" in result.lower()
+        # Check that at least one valid web resource URL appears in the output
+        has_resource = any(
+            urlparse(line.strip()).netloc in (
+                "www.ravelry.com", "www.google.com",
+                "www.lovecrafts.com", "www.youtube.com",
+            )
+            for line in result.splitlines()
+            if line.strip().startswith("http")
+        )
+        assert has_resource
 
     def test_unknown_item_mentions_input(self):
         result = process_request("lace tablecloth", use_us=False)

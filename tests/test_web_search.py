@@ -19,21 +19,25 @@ class TestSearchUrls:
         assert "beanie" in url or "beanie+hat" in url or "beanie%20hat" in url
 
     def test_ravelry_url_is_ravelry(self):
+        from urllib.parse import urlparse
         url = ravelry_search_url("scarf")
-        assert "ravelry.com" in url
+        assert urlparse(url).netloc == "www.ravelry.com"
 
     def test_google_url_contains_query(self):
+        from urllib.parse import urlparse
         url = google_search_url("granny square")
-        assert "google.com" in url
+        assert urlparse(url).netloc == "www.google.com"
         assert "granny" in url or "granny+square" in url or "granny%20square" in url
 
     def test_lovecrafts_url_contains_query(self):
+        from urllib.parse import urlparse
         url = lovecrafts_search_url("dishcloth")
-        assert "lovecrafts.com" in url
+        assert urlparse(url).netloc == "www.lovecrafts.com"
 
     def test_youtube_url_is_youtube(self):
+        from urllib.parse import urlparse
         url = youtube_search_url("amigurumi bunny")
-        assert "youtube.com" in url
+        assert urlparse(url).netloc == "www.youtube.com"
 
     def test_urls_are_strings(self):
         for fn in [ravelry_search_url, google_search_url,
