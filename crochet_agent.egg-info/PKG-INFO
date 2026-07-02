@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: crochet-agent
+Version: 0.1.0
+Summary: A crochet pattern creation agent using UK terminology
+Requires-Python: >=3.10
