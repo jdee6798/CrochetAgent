@@ -1,0 +1,2 @@
+[console_scripts]
+crochet-agent = crochet_agent.agent:main

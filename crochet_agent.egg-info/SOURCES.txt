@@ -1,0 +1,17 @@
+README.md
+pyproject.toml
+crochet_agent/__init__.py
+crochet_agent/__main__.py
+crochet_agent/agent.py
+crochet_agent/pattern_generator.py
+crochet_agent/terminology.py
+crochet_agent/web_search.py
+crochet_agent.egg-info/PKG-INFO
+crochet_agent.egg-info/SOURCES.txt
+crochet_agent.egg-info/dependency_links.txt
+crochet_agent.egg-info/entry_points.txt
+crochet_agent.egg-info/top_level.txt
+tests/test_agent.py
+tests/test_pattern_generator.py
+tests/test_terminology.py
+tests/test_web_search.py
