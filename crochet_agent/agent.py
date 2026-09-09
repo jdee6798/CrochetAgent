@@ -35,6 +35,9 @@ HELP_TEXT = textwrap.dedent("""\
       --glossary     Print a UK/US stitch glossary and exit
       --interactive  Start an interactive session (default when
                      no REQUEST is provided)
+      --web          Start the browser-based web app
+      --host HOST    Host interface for the web app (default: 127.0.0.1)
+      --port PORT    Port for the web app (default: 5000)
       -h, --help     Show this help message and exit
 
     Examples:
@@ -42,6 +45,7 @@ HELP_TEXT = textwrap.dedent("""\
       python -m crochet_agent "granny square" --us
       python -m crochet_agent --interactive
       python -m crochet_agent --glossary
+      python -m crochet_agent --web
 """)
 
 
@@ -139,11 +143,34 @@ def main(argv: list[str] | None = None) -> int:
         default=False,
         help="Start an interactive session.",
     )
+    parser.add_argument(
+        "--web",
+        action="store_true",
+        default=False,
+        help="Start the browser-based web app.",
+    )
+    parser.add_argument(
+        "--host",
+        default="127.0.0.1",
+        help="Host interface to use for the web app.",
+    )
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=5000,
+        help="Port to use for the web app.",
+    )
 
     args = parser.parse_args(argv)
 
     if args.glossary:
         print(stitch_glossary(args.us))
+        return 0
+
+    if args.web:
+        from .webapp import app as web_app
+
+        web_app.run(host=args.host, port=args.port, debug=False)
         return 0
 
     request_text = " ".join(args.request).strip()
