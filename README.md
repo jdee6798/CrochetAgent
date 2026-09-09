@@ -1,6 +1,6 @@
 # Crochet Pattern Creation Agent
 
-A command-line agent that designs crochet patterns based on your requirements.
+A command-line and web-based agent that designs crochet patterns based on your requirements.
 Patterns are written in **UK crochet terminology** by default, with an option to output **US terminology** instead.
 
 ## Features
@@ -11,6 +11,7 @@ Patterns are written in **UK crochet terminology** by default, with an option to
 - 🌐 Falls back to curated **web resources** (Ravelry, LoveCrafts, YouTube) for unsupported patterns
 - 🔤 Built-in UK ↔ US **stitch glossary**
 - 💬 Interactive or single-command mode
+- 🖥️ Web GUI for generating patterns in your browser
 
 ## Supported Pattern Types
 
@@ -45,6 +46,18 @@ python -m crochet_agent --glossary
 python -m crochet_agent --interactive
 ```
 
+## Run the Web App (GUI)
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the web interface
+crochet-agent-web
+```
+
+Then open `http://127.0.0.1:5000` in your browser.
+
 ## UK vs US Terminology
 
 | UK | UK abbr | US | US abbr |
@@ -62,6 +75,7 @@ crochet_agent/
 ├── __init__.py          # Public API
 ├── __main__.py          # python -m crochet_agent entry point
 ├── agent.py             # CLI and request dispatcher
+├── web_app.py           # Flask web app and GUI
 ├── pattern_generator.py # Pattern templates and request parsing
 ├── terminology.py       # UK/US terminology mapping and conversion
 └── web_search.py        # Web resource URL builders
