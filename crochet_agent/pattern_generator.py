@@ -87,6 +87,9 @@ def _render_raw(pattern: Pattern) -> str:
 # ---------------------------------------------------------------------------
 
 ITEM_PATTERNS: dict[str, list[str]] = {
+    "top": ["simple top", "top", "crop top", "tank top", "shell top"],
+    "boxy_jumper": ["boxy jumper", "boxy sweater", "oversized jumper"],
+    "granny_square_top": ["granny square top", "granny top", "granny square crop top"],
     "beanie": ["beanie", "hat", "cap", "bobble hat", "toque"],
     "scarf": ["scarf", "cowl", "snood", "neck warmer", "infinity scarf"],
     "granny_square": ["granny square", "granny", "square motif", "motif"],
@@ -567,6 +570,146 @@ Finishing:
     )
 
 
+def _simple_top_pattern(req: PatternRequest) -> Pattern:
+    """Generate a simple crochet top pattern."""
+    hook = HOOK_BY_WEIGHT.get(req.yarn_weight, "4.0 mm (UK 8, US G-6)")
+    yarn = YARN_BY_WEIGHT.get(req.yarn_weight, "DK yarn")
+    instructions = """\
+Foundation: Ch 46 for a size M. Work in rows.
+
+Row 1: Dc in 2nd ch from hook and across. Turn. (45 dc)
+
+Rows 2–10: Ch 1, dc in each st across. Turn.
+
+Shape armholes:
+  Row 11: Dc in next 15 sts, turn. Work on one side only. Leave remaining sts unworked for armhole.
+  Rows 12–18: Dc across. Turn.
+  Fasten off.
+
+Rejoin yarn to the opposite side and work the second panel to match.
+
+Join shoulders and sides:
+  Sew the two panels together with a simple seam, leaving a 12–15 cm opening at the sides.
+  Add a simple neckline by working dc around the top edge.
+
+Finishing: Weave in ends. Block lightly for shape.
+
+Optional straps: Ch 30, sl st to first ch to form a strap, sew to each shoulder.
+"""
+    return Pattern(
+        title="Simple Crochet Top",
+        materials=[
+            f"3–4 balls of {yarn}",
+            hook,
+            "Yarn needle",
+            "Scissors",
+        ],
+        abbreviations="ch=chain, dc=double crochet, sl st=slip stitch, st=stitch, rep=repeat",
+        gauge="18 dc × 18 rows = 10 cm square using 4.0 mm hook.",
+        instructions=instructions,
+        notes=[
+            "This is a simple flat top pattern with easy shaping and a boxy silhouette.",
+            "Adjust the foundation chain for a wider or narrower fit.",
+            "Add straps or leave as a sleeveless crop top.",
+        ],
+    )
+
+
+def _boxy_jumper_pattern(req: PatternRequest) -> Pattern:
+    """Generate a simple boxy crochet jumper pattern."""
+    hook = HOOK_BY_WEIGHT.get(req.yarn_weight, "5.0 mm (UK 6, US H-8)")
+    yarn = YARN_BY_WEIGHT.get(req.yarn_weight, "Aran / worsted yarn")
+    instructions = """\
+Back:
+  Ch 52 for a size M. Work in rows.
+
+Row 1: Dc in 2nd ch from hook and each ch across. Turn. (51 dc)
+
+Rows 2–18: Ch 1, dc in each st across. Turn.
+
+Shape armholes:
+  Row 19: Dc 4, turn. Skip 2 sts, dc across to 4 sts from end, turn.
+  Work 8 more rows in dc, then fasten off.
+
+Front:
+  Work the same as the back for 18 rows, then shape the neck by working half the sts at a time.
+  Make sure the shoulders are aligned and sew the pieces together.
+
+Sleeves (make 2):
+  Ch 24. Work rows of dc until sleeve measures approx. 40 cm.
+  Sew the sleeves to the body and stitch side seams.
+
+Neck edge:
+  Work 1 round of dc around the neckline and cuffs.
+
+Finishing: Weave in ends. Steam gently to relax the fabric.
+"""
+    return Pattern(
+        title="Boxy Crochet Jumper",
+        materials=[
+            f"6–8 balls of {yarn}",
+            hook,
+            "Yarn needle",
+            "Stitch marker",
+        ],
+        abbreviations="ch=chain, dc=double crochet, sl st=slip stitch, st=stitch, rep=repeat",
+        gauge="16 dc × 14 rows = 10 cm square using 5.0 mm hook.",
+        instructions=instructions,
+        notes=[
+            "This boxy jumper is intentionally relaxed and easy to wear.",
+            "Use a sturdy yarn for a structured silhouette.",
+            "For a stronger shoulder line, add a light edging around the neckline.",
+        ],
+    )
+
+
+def _granny_square_top_pattern(req: PatternRequest) -> Pattern:
+    """Generate a granny square top pattern."""
+    hook = HOOK_BY_WEIGHT.get(req.yarn_weight, "4.0 mm (UK 8, US G-6)")
+    yarn = YARN_BY_WEIGHT.get(req.yarn_weight, "DK yarn")
+    instructions = """\
+Make 5 granny squares in your chosen colours.
+
+Granny square (make 5):
+  Using Colour A, make a magic ring (MR).
+  Round 1: Ch 3, 2 tr in MR, ch 2, *3 tr in MR, ch 2; rep from * 2 more times.
+  Sl st to top of ch-3 and fasten off.
+
+  Round 2: Join Colour B in any corner space.
+  Ch 3, 2 tr in same space, ch 2, 3 tr in same space, *ch 1, (3 tr, ch 2, 3 tr) in next corner, rep around.
+  Sl st to top of ch-3 and fasten off.
+
+Arrange 3 squares across and 2 squares down to form the top body.
+
+Join rows:
+  Sew the squares together with a simple join.
+  Leave 1 square on each side open for armholes if desired.
+
+Neckline and straps:
+  Work a round of dc around the neck opening.
+  Make 2 straps by crocheting a long chain and attaching to each shoulder.
+
+Finishing: Weave in all ends and block lightly.
+"""
+    return Pattern(
+        title="Granny Square Crochet Top",
+        materials=[
+            f"3–5 balls of {yarn}",
+            hook,
+            "Yarn needle",
+            "Scissors",
+        ],
+        abbreviations="ch=chain, MR=magic ring, tr=treble crochet, dc=double crochet, sl st=slip stitch, st=stitch, rep=repeat",
+        gauge="Square motifs approx. 15 × 15 cm blocked.",
+        instructions=instructions,
+        notes=[
+            "Use a mix of colours for a playful granny square design.",
+            "For a more fitted silhouette, add fewer squares and tighter joins.",
+            "This style works especially well as a festival or beach top.",
+        ],
+    )
+
+
 # ---------------------------------------------------------------------------
 # Dispatcher
 # ---------------------------------------------------------------------------
@@ -574,6 +717,7 @@ Finishing:
 # Items that can be generated
 SUPPORTED_ITEMS = frozenset([
     "beanie", "scarf", "granny_square", "dishcloth", "bag", "blanket", "amigurumi",
+    "top", "boxy_jumper", "granny_square_top",
 ])
 
 _GENERATORS = {
@@ -584,6 +728,9 @@ _GENERATORS = {
     "bag": _bag_pattern,
     "blanket": _blanket_pattern,
     "amigurumi": _amigurumi_pattern,
+    "top": _simple_top_pattern,
+    "boxy_jumper": _boxy_jumper_pattern,
+    "granny_square_top": _granny_square_top_pattern,
 }
 
 

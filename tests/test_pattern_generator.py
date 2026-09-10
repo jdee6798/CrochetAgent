@@ -97,6 +97,9 @@ class TestCanGenerate:
         "market bag",
         "throw blanket",
         "amigurumi toy",
+        "simple top",
+        "boxy jumper",
+        "granny square top",
     ])
     def test_supported_items(self, item_input):
         req = parse_request(item_input)
