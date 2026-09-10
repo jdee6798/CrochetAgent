@@ -73,3 +73,10 @@ class TestWebApp:
         payload = response.get_json()
         assert "<svg" in payload["image_svg"].lower()
         assert "top" in payload["image_svg"].lower() or "shirt" in payload["image_svg"].lower()
+
+    def test_new_garment_previews_are_distinct(self):
+        client = app.test_client()
+        cardigan = client.post("/api/pattern", json={"prompt": "crochet cardigan"}).get_json()
+        skirt = client.post("/api/pattern", json={"prompt": "crochet skirt"}).get_json()
+        assert "Open Cardigan" in cardigan["image_svg"]
+        assert "A-Line Skirt" in skirt["image_svg"]

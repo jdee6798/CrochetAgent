@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from html import escape
 from pathlib import Path
 from typing import Any
 
@@ -55,7 +56,7 @@ def _record_pattern(prompt: str, pattern: str, use_us: bool) -> list[dict[str, A
 
 def _generate_image_svg(prompt: str, item_type: str | None = None) -> str:
     """Return a simple SVG illustration representing the finished item."""
-    safe_prompt = (prompt or "crochet item").strip()
+    safe_prompt = escape((prompt or "crochet item").strip()[:24])
     normalized = (item_type or "pattern").replace("_", " ").strip().lower()
     label = "Finished item" if not normalized else normalized.title()
 
@@ -86,6 +87,22 @@ def _generate_image_svg(prompt: str, item_type: str | None = None) -> str:
         """
         accent = "#f5d293"
         detail = "Granny Square Top"
+    elif "cardigan" in normalized or "shrug" in normalized:
+        shape = """
+        <path d="M58 48 L96 28 L130 54 L164 28 L202 48 L180 92 L168 186 L92 186 L80 92 Z" fill="#d5c9e8" stroke="#78638f" stroke-width="4"/>
+        <path d="M130 54 L130 186 M96 28 L130 54 L164 28" stroke="#78638f" stroke-width="4" fill="none"/>
+        <path d="M82 94 L96 116 M178 94 L164 116" stroke="#78638f" stroke-width="4" fill="none"/>
+        """
+        accent = "#c9b8df"
+        detail = "Open Cardigan"
+    elif "skirt" in normalized:
+        shape = """
+        <path d="M96 32 L164 32 L174 72 L210 190 L50 190 L86 72 Z" fill="#f4c8a8" stroke="#a96d61" stroke-width="4"/>
+        <path d="M86 72 L174 72 M76 112 L184 112 M64 152 L196 152" stroke="#a96d61" stroke-width="4" fill="none" opacity="0.7"/>
+        <path d="M96 32 L96 72 M164 32 L164 72" stroke="#a96d61" stroke-width="4" fill="none"/>
+        """
+        accent = "#f0b996"
+        detail = "A-Line Skirt"
     else:
         shape = """
         <path d="M60 54 L96 28 L144 54 L164 96 L156 188 L84 188 L76 96 Z" fill="#dfe8d9" stroke="#758c6d" stroke-width="4"/>
@@ -110,7 +127,7 @@ def _generate_image_svg(prompt: str, item_type: str | None = None) -> str:
       <circle cx='54' cy='52' r='20' fill='{accent}' opacity='0.75'/>
       <circle cx='206' cy='52' r='20' fill='{accent}' opacity='0.75'/>
       <text x='130' y='208' text-anchor='middle' font-family='Segoe UI, sans-serif' font-size='16' font-weight='700' fill='#4d3344'>{detail}</text>
-      <text x='130' y='224' text-anchor='middle' font-family='Segoe UI, sans-serif' font-size='10' fill='#675a63'>{safe_prompt[:24]}</text>
+      <text x='130' y='224' text-anchor='middle' font-family='Segoe UI, sans-serif' font-size='10' fill='#675a63'>{safe_prompt}</text>
     </svg>
     """
 

@@ -90,6 +90,8 @@ ITEM_PATTERNS: dict[str, list[str]] = {
     "top": ["simple top", "top", "crop top", "tank top", "shell top"],
     "boxy_jumper": ["boxy jumper", "boxy sweater", "oversized jumper"],
     "granny_square_top": ["granny square top", "granny top", "granny square crop top"],
+    "cardigan": ["cardigan", "crochet cardigan", "shrug", "crochet shrug"],
+    "skirt": ["skirt", "crochet skirt", "wrap skirt", "mini skirt"],
     "beanie": ["beanie", "hat", "cap", "bobble hat", "toque"],
     "scarf": ["scarf", "cowl", "snood", "neck warmer", "infinity scarf"],
     "granny_square": ["granny square", "granny", "square motif", "motif"],
@@ -710,6 +712,82 @@ Finishing: Weave in all ends and block lightly.
     )
 
 
+def _cardigan_pattern(req: PatternRequest) -> Pattern:
+        """Generate a simple open-front cardigan pattern."""
+        hook = HOOK_BY_WEIGHT.get(req.yarn_weight, "5.0 mm (UK 6, US H-8)")
+        yarn = YARN_BY_WEIGHT.get(req.yarn_weight, "Aran / worsted yarn")
+        instructions = """\
+Back:
+    Ch 62 for a size M. Work rows of dc until the piece measures 45 cm.
+    Fasten off and weave in the ends.
+
+Front panels (make 2):
+    Ch 32. Work rows of dc until the panel matches the back in length.
+    Keep the inner edge straight and fasten off.
+
+Sleeves (make 2):
+    Ch 30. Work rows of dc, increasing one stitch at each edge every 5 rows,
+    until the sleeve measures 40 cm. Fold and sew the long edge.
+
+Assembly:
+    Sew the shoulder seams, leaving the centre front open.
+    Attach sleeves and sew the side seams, leaving room for the cuffs.
+
+Edging:
+    Work 2 rounds of dc around the front, neckline, cuffs, and hem.
+    Fasten off and block lightly.
+"""
+        return Pattern(
+                title="Simple Open-Front Crochet Cardigan",
+                materials=[f"7–9 balls of {yarn}", hook, "Yarn needle", "Stitch marker"],
+                abbreviations="ch=chain, dc=double crochet, st=stitch, rep=repeat",
+                gauge="16 dc × 14 rows = 10 cm square using 5.0 mm hook.",
+                instructions=instructions,
+                notes=[
+                        "Wear this relaxed cardigan open or add a button at the neckline.",
+                        "Measure the back width against a favourite garment before joining.",
+                        "A contrasting edging gives the simple shape a finished look.",
+                ],
+        )
+
+
+def _skirt_pattern(req: PatternRequest) -> Pattern:
+        """Generate a simple elastic-waist crochet skirt pattern."""
+        hook = HOOK_BY_WEIGHT.get(req.yarn_weight, "4.0 mm (UK 8, US G-6)")
+        yarn = YARN_BY_WEIGHT.get(req.yarn_weight, "DK yarn")
+        instructions = """\
+Waistband:
+    Ch 12. Work rows of dc in the back loop only until the strip fits comfortably
+    around the waist. Join the short ends with slip stitches.
+
+Body:
+    Work dc evenly around one long edge of the waistband.
+    Round 1: Dc in each stitch around. Sl st to join.
+    Rounds 2–8: Ch 1, dc in each st around. Sl st to join.
+    Round 9: Ch 1, *dc in next 4 sts, 2 dc in next st; rep from * around.
+    Rounds 10–24: Ch 1, dc in each st around. Sl st to join.
+
+Hem:
+    Work 1 round of dc, then 1 round of slip stitches. Fasten off.
+
+Finishing:
+    Thread elastic through the waistband if extra support is desired.
+    Weave in ends and block to measurements.
+"""
+        return Pattern(
+                title="Simple Crochet A-Line Skirt",
+                materials=[f"4–6 balls of {yarn}", hook, "2 cm elastic (optional)", "Yarn needle"],
+                abbreviations="ch=chain, dc=double crochet, sl st=slip stitch, st=stitch, rep=repeat",
+                gauge="18 dc × 18 rows = 10 cm square using 4.0 mm hook.",
+                instructions=instructions,
+                notes=[
+                        "Measure the waistband over the clothes you plan to wear underneath.",
+                        "Add or remove body rounds to change the skirt length.",
+                        "Use a cotton blend for a skirt with good drape and recovery.",
+                ],
+        )
+
+
 # ---------------------------------------------------------------------------
 # Dispatcher
 # ---------------------------------------------------------------------------
@@ -717,7 +795,7 @@ Finishing: Weave in all ends and block lightly.
 # Items that can be generated
 SUPPORTED_ITEMS = frozenset([
     "beanie", "scarf", "granny_square", "dishcloth", "bag", "blanket", "amigurumi",
-    "top", "boxy_jumper", "granny_square_top",
+    "top", "boxy_jumper", "granny_square_top", "cardigan", "skirt",
 ])
 
 _GENERATORS = {
@@ -731,6 +809,8 @@ _GENERATORS = {
     "top": _simple_top_pattern,
     "boxy_jumper": _boxy_jumper_pattern,
     "granny_square_top": _granny_square_top_pattern,
+    "cardigan": _cardigan_pattern,
+    "skirt": _skirt_pattern,
 }
 
 

@@ -100,6 +100,8 @@ class TestCanGenerate:
         "simple top",
         "boxy jumper",
         "granny square top",
+        "cardigan",
+        "crochet skirt",
     ])
     def test_supported_items(self, item_input):
         req = parse_request(item_input)
@@ -189,6 +191,8 @@ class TestGeneratePattern:
             "bag": "bag",
             "blanket": "blanket",
             "amigurumi": "amigurumi toy",
+            "cardigan": "crochet cardigan",
+            "skirt": "crochet skirt",
         }
         for item_type, user_input in sample_inputs.items():
             req = parse_request(user_input)
